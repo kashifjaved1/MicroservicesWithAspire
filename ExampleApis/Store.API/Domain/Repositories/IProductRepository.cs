@@ -1,0 +1,14 @@
+using Store.API.Domain.Models;
+using Store.API.Domain.Models.Queries;
+
+namespace Store.API.Domain.Repositories
+{
+    public interface IProductRepository
+    {
+        Task<QueryResult<Product>> ListAsync(ProductsQuery query);
+        Task AddAsync(Product product);
+        Task<Product?> FindByIdAsync(int id);
+        void Update(Product product);
+        void Remove(Product product);
+    }
+}

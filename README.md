@@ -1,2 +1,3 @@
 # MicroservicesWithAspire
-Microservices (Restaurant Api, UrlShortener Api, RefreshTokenApi, Store Api) with YARP Gateway Integrated into .NET Aspire with Service Discovery.
+## A very basic .NET demo project
+- Microservices (Restaurant Api, UrlShortener Api, RefreshTokenApi, Store Api) with YARP Gateway Integrated into .NET Aspire with Service Discovery. The services are discoverable via gateway with logical names (service discovery). Also added basic gRPC Server (UrlShortener Api), gRPC Client (RefreshToken Api) and made them inernally communicate via logical names (service discovery).
