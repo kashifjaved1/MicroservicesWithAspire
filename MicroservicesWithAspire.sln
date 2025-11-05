@@ -35,6 +35,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MicroservicesWithAspire.App
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MicroservicesWithAspire.ServiceDefaults", "MicroservicesWithAspire.ServiceDefaults\MicroservicesWithAspire.ServiceDefaults.csproj", "{680F114B-B0EC-87D5-B544-7DF6A049880D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared", "ExampleApis\Shared\Shared.csproj", "{C8D5D3C5-860D-4DB4-9980-3F0899A7E910}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -81,6 +83,10 @@ Global
 		{680F114B-B0EC-87D5-B544-7DF6A049880D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{680F114B-B0EC-87D5-B544-7DF6A049880D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{680F114B-B0EC-87D5-B544-7DF6A049880D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C8D5D3C5-860D-4DB4-9980-3F0899A7E910}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8D5D3C5-860D-4DB4-9980-3F0899A7E910}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8D5D3C5-860D-4DB4-9980-3F0899A7E910}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8D5D3C5-860D-4DB4-9980-3F0899A7E910}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -98,6 +104,7 @@ Global
 		{B29F03F0-0889-3F05-303F-4E77063BC431} = {5722A8E8-F9A1-4A36-A115-D0922F5BEBCD}
 		{25073D24-4436-19DF-6732-573CD91644C8} = {F80D3750-14D8-4A7E-87A3-E97AC7175642}
 		{0E81E8E1-56DE-A6D3-D39D-03B721EE0F19} = {E6CECA71-F625-4190-8778-CC703EE8F2C6}
+		{C8D5D3C5-860D-4DB4-9980-3F0899A7E910} = {7B1A5B28-1880-4EF7-8C3A-9C1BAFC593DD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2CF99F1E-593C-4FE9-831A-9332BCDB3706}

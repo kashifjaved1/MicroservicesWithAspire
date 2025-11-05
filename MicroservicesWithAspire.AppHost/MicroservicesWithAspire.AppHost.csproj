@@ -15,11 +15,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Auth.API\Auth.API.csproj" />
-    <ProjectReference Include="..\CleanArchitectureExample.API\Restaurants.API\Restaurants.API.csproj" />
+    <ProjectReference Include="..\ExampleApis\Auth.API\Auth.API.csproj" />
+    <ProjectReference Include="..\ExampleApis\CleanArchitectureExample.API\Restaurants.API\Restaurants.API.csproj" />
+    <ProjectReference Include="..\ExampleApis\Store.API\Store.API.csproj" />
+    <ProjectReference Include="..\ExampleApis\UrlShortener.API\UrlShortener.API.csproj" />
     <ProjectReference Include="..\Gateway\ApiGateway\ApiGateway.csproj" />
-    <ProjectReference Include="..\Store.API\Store.API.csproj" />
-    <ProjectReference Include="..\UrlShortener.API\UrlShortener.API.csproj" />
   </ItemGroup>
 
 </Project>

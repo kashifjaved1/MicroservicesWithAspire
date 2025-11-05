@@ -21,7 +21,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\MicroservicesWithAspire.ServiceDefaults\MicroservicesWithAspire.ServiceDefaults.csproj" />
+	  <ProjectReference Include="..\..\MicroservicesWithAspire.ServiceDefaults\MicroservicesWithAspire.ServiceDefaults.csproj" />
 	</ItemGroup>
 
 </Project>

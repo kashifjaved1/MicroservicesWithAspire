@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
     <PropertyGroup>
-        <TargetFramework>net8.0</TargetFramework>
+        <TargetFramework>net9.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
     </PropertyGroup>
@@ -19,8 +19,14 @@
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
     </ItemGroup>
 
+	<ItemGroup>
+		<PackageReference Include="MassTransit" Version="8.5.5" />
+		<PackageReference Include="MassTransit.RabbitMQ" Version="8.5.5" />
+	</ItemGroup>
+
     <ItemGroup>
-      <ProjectReference Include="..\MicroservicesWithAspire.ServiceDefaults\MicroservicesWithAspire.ServiceDefaults.csproj" />
+      <ProjectReference Include="..\..\MicroservicesWithAspire.ServiceDefaults\MicroservicesWithAspire.ServiceDefaults.csproj" />
+      <ProjectReference Include="..\Shared\Shared.csproj" />
     </ItemGroup>
 
     <ItemGroup>

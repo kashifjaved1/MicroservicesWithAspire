@@ -1,10 +1,13 @@
 using LiteDB;
 using MicroservicesWithAspire.ServiceDefaults;
 using Microsoft.AspNetCore.WebUtilities;
+using UrlShortener.API.Extensions;
 using UrlShortener.API.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddGrpc();
+
+builder.Services.ConfigureMasstransit("myCustomExchange", "direct", "myCustomRoutingKey", "myCustomQueue");
 
 builder.AddServiceDefaults();
 builder.Services.AddSingleton<ILiteDatabase, LiteDatabase>(_ => new LiteDatabase("short-links.db"));

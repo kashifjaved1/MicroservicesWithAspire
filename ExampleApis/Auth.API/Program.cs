@@ -1,13 +1,14 @@
-using System.Text.Json.Serialization;
 using Auth.API.Authorization;
 using Auth.API.Entities;
 using Auth.API.Extensions;
 using Auth.API.Helpers;
 using Auth.API.Services;
-using Grpc.Net.Client;
+using MassTransit;
 using MicroservicesWithAspire.ServiceDefaults;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.ServiceDiscovery.Http;
+using Shared;
+using Shared.Events;
+using System.Text.Json.Serialization;
 using UrlShortener.API;
 
 //using Microsoft.EntityFrameworkCore;
@@ -30,22 +31,21 @@ builder.Services.AddGrpcClient<Greeter.GreeterClient>(options =>
     services.AddCors();
 
     services.AddControllers().AddJsonOptions(x =>
-        {
-            // Serialize enums as strings in api responses (e.g. Role)
-            x.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+    {
+        // Serialize enums as strings in api responses (e.g. Role)
+        x.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
 
-            // Hide values from Json when they are null
-            x.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+        // Hide values from Json when they are null
+        x.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
 
-            // Make sure that the Json data are more easy to read / pretty print
-            x.JsonSerializerOptions.WriteIndented = true;
+        // Make sure that the Json data are more easy to read / pretty print
+        x.JsonSerializerOptions.WriteIndented = true;
 
-            // Note: To prevent the JsonException thrown when try to get a List of 
-            // all Accounts with all their individual RefreshTokens:
-            // "JsonException: A possible object cycle was detected"
-            x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
-        }
-    );
+        // Note: To prevent the JsonException thrown when try to get a List of 
+        // all Accounts with all their individual RefreshTokens:
+        // "JsonException: A possible object cycle was detected"
+        x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
+    });
 
     // configure strongly typed settings object
     services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
@@ -55,17 +55,35 @@ builder.Services.AddGrpcClient<Greeter.GreeterClient>(options =>
     services.AddScoped<IUserService, UserService>();
 
     builder.Services.AddCustomSwagger();
+
+    builder.Services.ConfigureMasstransit("myCustomExchange", "direct", "myCustomRoutingKey", "myCustomQueue");
 }
 
 var app = builder.Build();
 
 app.MapDefaultEndpoints();
 
-app.MapGet("/greeter", (Greeter.GreeterClient client) =>
+//app.MapGet("/greeter", async (Greeter.GreeterClient client, IPublishEndpoint publishEndpoint, IBus bus) =>
+app.MapGet("/greeter", async (Greeter.GreeterClient client, IPublishEndpoint publishEndpoint) =>
 {
     try
     {
         var reply = client.SayHello(new HelloRequest { Name = "World" });
+
+        // In RabbitMQ we open connection by registered connectionFactory, create channel, and then with the help of channel we create exchange, queue,
+        // bind them to each other and publish/consume message(s).
+        // In Masstransit as this stuff is automatically handled and we already set the endpoint(s) and consumer(s) so we just simply publish message which is actually
+        // raising a event and that event consumer automatically consumes it.
+        // [NOTE]: In Masstransit we don't have autoAck like we have in RabbitMQ, so we use the some queue as a returnQueue to achieve kinda same behaviour.
+
+        // Use standard publish - MassTransit will handle routing
+        await publishEndpoint.Publish(new GrpcCallProcessed(Guid.NewGuid(), DateTime.UtcNow));
+
+        //var endpoint = await bus.GetSendEndpoint(new Uri("exchange:myCustomExchange"));
+        //await endpoint.Send(new GrpcCallProcessed(Guid.NewGuid(), DateTime.UtcNow), ctx =>
+        //{
+        //    ctx.SetRoutingKey("myCustomRoutingKey");
+        //});
     }
     catch (Exception)
     {
